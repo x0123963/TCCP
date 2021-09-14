@@ -1,5 +1,5 @@
 # [TCCP] wordlikeness rating on PsychToolkit
-# Lisa Chang 2020.4.11
+# Lisa Chang 2021.4.11
 
 options
   fullscreen
