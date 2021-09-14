@@ -1,0 +1,99 @@
+# [TCCP] wordlikeness rating on PsychToolkit
+# Lisa Chang 2020.4.11
+
+options
+  fullscreen
+  scale
+  resolution 1920 1080
+  background color white
+  loading text 請稍後
+  startbutton text 請用滑鼠點擊紅色區域
+  bitmapdir stimuli
+
+bitmaps
+  include item_filename.txt
+  rest
+  end
+  beginning
+  practice_ins
+  real_ins
+  my_rectangle
+  leftmost
+  rightmost
+  timeout
+
+#filename  is_practice  condition
+table TCCPconditions_p
+  p1  "1" "real_mid filler Real Mid"
+  p2  "2" "real_mid filler Real Mid"
+  p3  "3" "real_mid filler Real Mid"
+  p4  "4" "non_mid filler Nonword Mid"
+  p5  "5" "non_mid filler Nonword Mid"
+  p6  "6" "non_mid filler Nonword Mid"
+  p7  "7" "real_mid filler Real Mid"
+  p8  "8" "non_mid filler Nonword Mid"
+  p9  "9" "real_mid filler Real Mid"
+  p10 "10" "non_mid filler Nonword Mid"
+  p11 "11" "real_mid filler Real Mid"
+  p12 "12" "sg filler Nonword N/A"
+
+table TCCPconditions_r
+  include test_item_list.txt
+
+task TCCPrating_p
+  table TCCPconditions_p
+  show bitmap @1 -300 0
+  rate option pos 300 0
+  rate option labels leftmost rightmost
+  rate option items my_rectangle
+  rate 60000 7
+  if RATE_STATUS != 1
+    error
+    show bitmap timeout
+    delay 1500
+  fi
+  clear -1
+  delay 500
+  save BLOCKNAME @3 @2 RATE_STATUS RATE RATE_RT
+
+task TCCPrating_r
+  table TCCPconditions_r
+  show bitmap @1 -300 0
+  rate option pos 300 0
+  rate option labels leftmost rightmost
+  rate option items my_rectangle
+  rate 60000 7
+  if RATE_STATUS != 1
+    error
+    show bitmap timeout
+    delay 1500
+  fi
+  clear -1
+  delay 500
+  save BLOCKNAME @3 @2 RATE_STATUS RATE RATE_RT
+
+block training
+  message beginning mouse
+  message practice_ins mouse
+  tasklist
+    TCCPrating_p 12 all_before_repeat
+  end
+
+block real1
+  message real_ins mouse
+  tasklist
+    TCCPrating_r 42 all_before_repeat
+  end
+  message rest mouse
+
+block real2
+  tasklist
+    TCCPrating_r 42 repeat_on_error all_before_repeat
+  end
+  message rest mouse
+
+block real3
+  tasklist
+    TCCPrating_r 42 repeat_on_error all_before_repeat
+  end
+  message end mouse
