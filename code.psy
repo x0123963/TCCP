@@ -1,5 +1,5 @@
-# [TCCP] wordlikeness rating on PsychToolkit
-# Lisa Chang 2021.4.11
+# [TCCP] wordlikeness rating on PsyToolkit
+# Lisa Chang 2021.10.18
 
 options
   fullscreen
@@ -16,32 +16,32 @@ bitmaps
   end
   beginning
   practice_ins
-  real_ins
+  exp_ins
   my_rectangle
   leftmost
   rightmost
   timeout
 
 #filename  is_practice  condition
-table TCCPconditions_p
-  p1  "1" "real_mid filler Real Mid"
-  p2  "2" "real_mid filler Real Mid"
-  p3  "3" "real_mid filler Real Mid"
-  p4  "4" "non_mid filler Nonword Mid"
-  p5  "5" "non_mid filler Nonword Mid"
-  p6  "6" "non_mid filler Nonword Mid"
-  p7  "7" "real_mid filler Real Mid"
-  p8  "8" "non_mid filler Nonword Mid"
-  p9  "9" "real_mid filler Real Mid"
-  p10 "10" "non_mid filler Nonword Mid"
-  p11 "11" "real_mid filler Real Mid"
-  p12 "12" "sg filler Nonword N/A"
+table TCCPconditions_practice
+  p1  "1" "practice Word critical"
+  p2  "2" "practice Word critical"
+  p3  "3" "practice Word critical"
+  p4  "4" "practice Nonword filler"
+  p5  "5" "practice Nonword critical"
+  p6  "6" "practice Nonword critical"
+  p7  "7" "practice Word critical"
+  p8  "8" "practice Nonword filler"
+  p9  "9" "practice Word critical"
+  p10 "10" "practice Word critical"
+  p11 "11" "practice Nonword filler"
+  p12 "12" "practice Nonword filler"
 
-table TCCPconditions_r
-  include test_item_list.txt
+table TCCPconditions_exp
+  include exp_item_list.txt
 
-task TCCPrating_p
-  table TCCPconditions_p
+task TCCPrating_practice
+  table TCCPconditions_practice
   show bitmap @1 -300 0
   rate option pos 300 0
   rate option labels leftmost rightmost
@@ -56,8 +56,8 @@ task TCCPrating_p
   delay 500
   save BLOCKNAME @3 @2 RATE_STATUS RATE RATE_RT
 
-task TCCPrating_r
-  table TCCPconditions_r
+task TCCPrating_exp
+  table TCCPconditions_exp
   show bitmap @1 -300 0
   rate option pos 300 0
   rate option labels leftmost rightmost
@@ -76,24 +76,36 @@ block training
   message beginning mouse
   message practice_ins mouse
   tasklist
-    TCCPrating_p 12 all_before_repeat
+    TCCPrating_practice 12 all_before_repeat
   end
 
 block real1
-  message real_ins mouse
+  message exp_ins mouse
   tasklist
-    TCCPrating_r 42 all_before_repeat
+    TCCPrating_exp 50 repeat_on_error all_before_repeat
   end
   message rest mouse
 
 block real2
   tasklist
-    TCCPrating_r 42 repeat_on_error all_before_repeat
+    TCCPrating_exp 50 repeat_on_error all_before_repeat
   end
   message rest mouse
 
 block real3
   tasklist
-    TCCPrating_r 42 repeat_on_error all_before_repeat
+    TCCPrating_exp 50 repeat_on_error all_before_repeat
+  end
+  message rest mouse
+
+block real4
+  tasklist
+    TCCPrating_exp 50 repeat_on_error all_before_repeat
+  end
+  message rest mouse
+
+block real5
+  tasklist
+    TCCPrating_exp 50 repeat_on_error all_before_repeat
   end
   message end mouse
