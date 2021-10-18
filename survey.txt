@@ -1,0 +1,41 @@
+# Lisa Chang
+# 2021/10/18 TCCP rating: online version
+
+l: impair
+t: radio
+o: random
+q: 是否曾有語言、閱讀、聽力障礙?
+- 否
+- 是
+
+l: native
+t: radio
+o: random
+q: 母語是否為台灣華語(不含普通話、馬來西亞華語等)?
+- 否
+- 是
+
+l: Zhuyin
+t: radio
+o: random
+q: 平常是否使用注音輸入法?
+- 否
+- 是
+
+l: instruction_online
+t: info
+q: 以下進行評分實驗，請注意下列幾點：<br>
+(一) 請全程使用<b>滑鼠</b>作答。<br>
+(二) 不要按瀏覽器的「上一頁」。<br>
+(三) 如果在下一頁沒有看到指示，請點擊<font color="red">紅色區塊</font>，視窗會自動調整到全螢幕顯示。如果沒有正常全螢幕顯示，請再按tab鍵試看看。<br>
+
+l: task
+t: experiment
+- {fullscreen} rating
+
+l: debriefing
+t: textbox
+q: 最後有幾個問題想詢問大家，請回想一下剛剛的實驗過程，<br>
+- {w=100,h=2} 實驗長度是否太無聊？
+- {w=100,h=5} 有沒有注音符號的排列方式很奇怪？(例如：看起來歪歪的、聲調符號太高……等)
+- {w=100,h=5} 任何其他建議？
