@@ -64,9 +64,8 @@ long.syll <- function(tt_sg_ch, Tone, keep_all){
   tt_long<- pivot_longer(tt_sg_ch, !Onset, names_to = "Rime", 
                               values_to = "Frequency", values_drop_na=!keep_all)
   tt_long$Tones<- Tone
-  tt_long$Syllables<- paste(tt_long$Onset, tt_long$Rime, Tone, sep="")
-  tt_long$Syllables[tt_long$Onset=="0"]<- paste(tt_long$Rime[tt_long$Onset=="0"]
-                                                , Tone, sep="")
+  tt_long$Syllables<- paste0(tt_long$Onset, tt_long$Rime, Tone)
+  tt_long$Syllables[tt_long$Onset=="0"]<- paste0(tt_long$Rime[tt_long$Onset=="0"], Tone)
   return(tt_long);
 }
 
@@ -98,10 +97,9 @@ for (i in 1:nrow(all)){
   if (all$Rime[i] %in% sg_char){
     rime_SAMPA<- names(sg_char)[sg_char==all$Rime[i]]
     if (all$Onset[i]!="0"){
-      all$Syllables_SAMPA[i]<- paste(all$Onset[i], 
-                                     rime_SAMPA, all$Tones[i], sep="")
+      all$Syllables_SAMPA[i]<- paste0(all$Onset[i], rime_SAMPA, all$Tones[i])
     } else{
-      all$Syllables_SAMPA[i]<- paste(rime_SAMPA, all$Tones[i], sep="")
+      all$Syllables_SAMPA[i]<- paste0(rime_SAMPA, all$Tones[i])
     }
   } else{
     all$Syllables_SAMPA[i]<- all$Syllables[i]
